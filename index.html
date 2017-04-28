@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="mainApp">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Test page Rudiuk</title>
+	<link rel="stylesheet" href="dist/css/normalize.css">
+	<link rel="stylesheet" href="dist/css/style.css">
+</head>
+<body>
+
+<aside class="aside">
+	<h1>Main</h1>
+	<div class="aside__lable">
+		Overview
+	</div>
+</aside>
+
+<main items class="main">
+	<div class="main-block main-block__items">
+		<div class="main__header">
+			items
+		</div>
+
+		<div class="main__userAction">
+			<input type="text" class="main__userAction-input" placeholder="Type name here..." 
+					ng-keyup="$event.keyCode == 13 && itemsCtrl.addItem()" 
+					ng-model="itemsCtrl.currentItem.name">
+			<button class="main__userAction-button" ng-click="itemsCtrl.addItem()">Add new</button>
+		</div>
+
+		<div class="main__item" 
+				ng-repeat="item in itemsCtrl.items" 
+				ng-class="item.class" 
+				ng-click="itemsCtrl.isActive( item.class, item )">
+			<div class="main__item-text">
+				<span class="main__item-name" ng-bind="item.name"></span>
+				<span class="main__item-lable" ng-bind="item.lable"></span>
+			</div>
+			<button class="main__item-button" ng-click="itemsCtrl.deleteItem(item.name)">Delete</button>
+			<hr>
+		</div>
+
+	</div>
+
+	<div class="main-block main-block__comments">
+		<div class="main__header">
+			comments #<span ng-bind="itemsCtrl.commentsNum"></span>
+		</div>
+
+		<div ng-repeat="item in itemsCtrl.items">
+			<div class="main__comment" ng-if="item.class === 'active'" ng-repeat="comment in item.comments">
+				<div class="main__comment-picBox"></div>
+				<div class="main__comment-text" ng-bind="comment.text" ></div>
+				<hr>
+			</div>
+		</div>
+
+		<div class="main__comment">
+			<div class="main__comment-picBox main__comment-picBox-input"></div>
+			<textarea name="input-comment" cols="44" rows="4" class="main__comment-text main__comment-text-input" 
+						ng-model="itemsCtrl.userComment.text" 
+						ng-keyup="$event.keyCode == 13 && itemsCtrl.sendComment()">		
+			</textarea>
+		</div>
+
+	</div>
+</main>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.js"></script>
+<script src="https://cdn.jsdelivr.net/ngstorage/0.3.6/ngStorage.min.js"></script>
+<script src="dist/js/mainApp.min.js"></script>
+</body>
+</html>
