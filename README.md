@@ -1,2 +1,2 @@
-# github.io
-test task for empeek
+# Empeek test project
+Test task for empeek
